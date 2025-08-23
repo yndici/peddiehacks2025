@@ -307,12 +307,14 @@ if (previewTableSection) {
 if (trendData) {
     renderTrendChart(trendData);
 }
+updateTotalTransactionsWidget(data.length);
 }
 
 document.addEventListener('keydown', function(event) {
     if (event.key.toLowerCase() === 'r') {
         resetPage();
     }
+
 });
 
 function analyzeSpendingTrends(data) {
@@ -443,7 +445,13 @@ function renderTrendChart(chartData) {
         }
     });
 }
-
+function updateTotalTransactionsWidget(count) {
+    const resultDiv = document.getElementById('widgetResult');
+    if (resultDiv) {
+        resultDiv.textContent = `Total Transactions: ${count}`;
+        resultDiv.style.display = 'block';
+    }
+}
 function resetPage() {
     // Reset all data
     originalData = [];
@@ -501,5 +509,11 @@ function resetPage() {
     window.spendingTrendChartInstance.destroy();
     window.spendingTrendChartInstance = null;
     }
+    
+    //Hide Total Transactions widget result
+    const resultDiv = document.getElementById('widgetResult');
+    if (resultDiv) {
+    resultDiv.style.display = 'none';
+}
 }
 });
